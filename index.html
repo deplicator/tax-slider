@@ -55,39 +55,39 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>$0 - $9,225</td>
-                            <td>10.0%</td>
                             <td><span id="ten-amount"></span></td>
+                            <td>10.0%</td>
+                            <td><span id="ten-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$9,226 - $37,450</td>
-                            <td>15.0%</td>
                             <td><span id="fifteen-amount"></span></td>
+                            <td>15.0%</td>
+                            <td><span id="fifteen-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$37,451 - $90,750</td>
-                            <td>25.0%</td>
                             <td><span id="twentyfive-amount"></span></td>
+                            <td>25.0%</td>
+                            <td><span id="twentyfive-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$90,751 - $189,300</td>
-                            <td>28.0%</td>
                             <td><span id="twentyeight-amount"></span></td>
+                            <td>28.0%</td>
+                            <td><span id="twentyeight-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$189,301 - $411,500</td>
-                            <td>33.0%</td>
                             <td><span id="thirtythree-amount"></span></td>
+                            <td>33.0%</td>
+                            <td><span id="thirtythree-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$411,501 - $413,200</td>
-                            <td>35.0%</td>
                             <td><span id="thirtyfive-amount"></span></td>
+                            <td>35.0%</td>
+                            <td><span id="thirtyfive-tax"></span></td>
                         </tr>
                         <tr>
-                            <td>$413,201+</td>
-                            <td>39.6%</td>
                             <td><span id="thirtynine-amount"></span></td>
+                            <td>39.6%</td>
+                            <td><span id="thirtynine-tax"></span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -110,7 +110,7 @@
         // Returns string of a number formated to be a percent.
         function percentagize(num) {
             if(isNaN(num)) { num = 0; }
-            num = Math.round(num * 1000) / 10;
+            num = Math.round(num * 10000) / 100;
             return num.toString() + '%';
         }
 
@@ -118,55 +118,96 @@
             // Value from slider.
             var taxableAmount = parseInt($('input').val(), 10);
 
+            // Amounts to tax for each percent range.
+            var tenAmount = 0;
+            var fifteenAmount = 0;
+            var twentyfiveAmount = 0;
+            var twentyeightAmount = 0;
+            var thirtythreeAmount = 0;
+            var thirtyfiveAmount = 0;
+            var thirtynineAmount = 0;
+
             // Caluclate tax amounts.
-            var tenPercent = 0;
-            var fifteenPercent = 0;
-            var twentyfivePercent = 0;
-            var twentyeightPercent = 0;
-            var thirtythreePercent = 0;
-            var thirtyfivePercent = 0;
-            var thirtyninePercent = 0;
+            var tenTax = 0;
+            var fifteenTax = 0;
+            var twentyfiveTax = 0;
+            var twentyeightTax = 0;
+            var thirtythreeTax = 0;
+            var thirtyfiveTax = 0;
+            var thirtynineTax = 0;
 
             if(taxableAmount <= 9225) {
-                tenPercent = taxableAmount * 0.10;
+                tenAmount = taxableAmount;
+                tenTax = tenAmount * 0.10;
             } else if(taxableAmount <= 37450) {
-                tenPercent = 922.50;
-                fifteenPercent = (taxableAmount - 9225) * 0.15;
+                tenAmount = 9225;
+                fifteenAmount = taxableAmount - 9225;
+                tenTax = 922.50;
+                fifteenTax = fifteenAmount * 0.15;
             } else if(taxableAmount <= 90750) {
-                tenPercent = 922.50;
-                fifteenPercent = 4233.50;
-                twentyfivePercent = (taxableAmount - 37450) * 0.25;
+                tenAmount = 9225;
+                fifteenAmount = 28224;
+                twentyfiveAmount = taxableAmount - 37450;
+                tenTax = 922.50;
+                fifteenTax = 4233.50;
+                twentyfiveTax = twentyfiveAmount * 0.25;
+
             } else if(taxableAmount <= 189300) {
-                tenPercent = 922.50;
-                fifteenPercent = 4233.50;
-                twentyfivePercent = 13325.00;
-                twentyeightPercent = (taxableAmount - 90750) * 0.28;
+                tenAmount = 9225;
+                fifteenAmount = 28224;
+                twentyfiveAmount = 53299;
+                twentyeightAmount = taxableAmount - 90750;
+                tenTax = 922.50;
+                fifteenTax = 4233.50;
+                twentyfiveTax = 13325.00;
+                twentyeightTax = twentyeightAmount * 0.28;
+
             } else if(taxableAmount <= 411500) {
-                tenPercent = 922.50;
-                fifteenPercent = 4233.50;
-                twentyfivePercent = 13325.00;
-                twentyeightPercent = 27593.72;
-                thirtythreePercent = (taxableAmount - 189300) * 0.33;
+                tenAmount = 9225;
+                fifteenAmount = 28224;
+                twentyfiveAmount = 53299;
+                twentyeightAmount = 98549;
+                thirtythreeAmount = taxableAmount - 189300;
+                tenTax = 922.50;
+                fifteenTax = 4233.50;
+                twentyfiveTax = 13325.00;
+                twentyeightTax = 27593.72;
+                thirtythreeTax = thirtythreeAmount * 0.33;
+
             } else if(taxableAmount <= 413200) {
-                tenPercent = 922.50;
-                fifteenPercent = 4233.50;
-                twentyfivePercent = 13325.00;
-                twentyeightPercent = 27593.72;
-                thirtythreePercent = 73325.67;
-                thirtyfivePercent = (taxableAmount - 411500) * 0.35;
+                tenAmount = 9225;
+                fifteenAmount = 28224;
+                twentyfiveAmount = 53299;
+                twentyeightAmount = 98549;
+                thirtythreeAmount = 22199;
+                thirtyfiveAmount = taxableAmount - 411500;
+                tenTax = 922.50;
+                fifteenTax = 4233.50;
+                twentyfiveTax = 13325.00;
+                twentyeightTax = 27593.72;
+                thirtythreeTax = 73325.67;
+                thirtyfiveTax = thirtyfiveAmount * 0.35;
+
             } else {
-                tenPercent = 922.50;
-                fifteenPercent = 4233.50;
-                twentyfivePercent = 13325.00;
-                twentyeightPercent = 27593.72;
-                thirtythreePercent = 73325.67;
-                thirtyfivePercent = 594.65;
-                thirtyninePercent = (taxableAmount - 413200) * 0.396;
+                tenAmount = 9225;
+                fifteenAmount = 28224;
+                twentyfiveAmount = 53299;
+                twentyeightAmount = 98549;
+                thirtythreeAmount = 22199;
+                thirtyfiveAmount = 1699;
+                thirtynineAmount = taxableAmount - 413200;
+                tenTax = 922.50;
+                fifteenTax = 4233.50;
+                twentyfiveTax = 13325.00;
+                twentyeightTax = 27593.72;
+                thirtythreeTax = 73325.67;
+                thirtyfiveTax = 594.65;
+                thirtynineTax = thirtynineAmount * 0.396;
             }
 
             // Calculate effective tax rate.
-            var totalTaxAmount = tenPercent + fifteenPercent + twentyfivePercent +
-                twentyeightPercent + thirtythreePercent + thirtyfivePercent + thirtyninePercent;
+            var totalTaxAmount = tenTax + fifteenTax + twentyfiveTax +
+                twentyeightTax + thirtythreeTax + thirtyfiveTax + thirtynineTax;
             var effectiveTaxRate = totalTaxAmount / taxableAmount;
 
             // Update display tables.
@@ -174,18 +215,26 @@
             $('#total-tax-rate').html(percentagize(effectiveTaxRate));
             $('#total-tax-amount').html(dollarize(totalTaxAmount));
 
-            $('#ten-amount').html(dollarize(tenPercent));
-            $('#fifteen-amount').html(dollarize(fifteenPercent));
-            $('#twentyfive-amount').html(dollarize(twentyfivePercent));
-            $('#twentyeight-amount').html(dollarize(twentyeightPercent));
-            $('#thirtythree-amount').html(dollarize(thirtythreePercent));
-            $('#thirtyfive-amount').html(dollarize(thirtyfivePercent));
-            $('#thirtynine-amount').html(dollarize(thirtyninePercent));
+            $('#ten-amount').html(dollarize(tenAmount));
+            $('#ten-tax').html(dollarize(tenTax));
 
+            $('#fifteen-amount').html(dollarize(fifteenAmount));
+            $('#fifteen-tax').html(dollarize(fifteenTax));
 
+            $('#twentyfive-amount').html(dollarize(twentyfiveAmount));
+            $('#twentyfive-tax').html(dollarize(twentyfiveTax));
 
+            $('#twentyeight-amount').html(dollarize(twentyeightAmount));
+            $('#twentyeight-tax').html(dollarize(twentyeightTax));
 
+            $('#thirtythree-amount').html(dollarize(thirtythreeAmount));
+            $('#thirtythree-tax').html(dollarize(thirtythreeTax));
 
+            $('#thirtyfive-amount').html(dollarize(thirtyfiveAmount));
+            $('#thirtyfive-tax').html(dollarize(thirtyfiveTax));
+
+            $('#thirtynine-amount').html(dollarize(thirtynineAmount));
+            $('#thirtynine-tax').html(dollarize(thirtynineTax));
 
         }
 
