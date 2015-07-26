@@ -1,7 +1,7 @@
 Tax Slider
 ==========
 A different way to see how the government takes your money (I hear they do some stuff in return for
-it--seems fair). [A blog post about this project]().
+it--seems fair). [A blog post about this project](http://deplicator.github.io/blog/tax-sliding).
 
 Instructions
 -----------
