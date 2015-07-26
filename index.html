@@ -19,7 +19,8 @@
                 </button>
                 <span id="notice">
                     This number represents your taxable income, move the slider to see how changes
-                    in taxable income effect the taxes owed for 2015.
+                    in taxable income effect the taxes owed for 2015. <strong>Only for filing as
+                    single.</strong>
                 </span>
             </div>
 
@@ -31,9 +32,9 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-xs-4">Amount</th>
+                            <th class="col-xs-4">Taxable Income</th>
                             <th class="col-xs-4">Effective Tax Rate</th>
-                            <th class="col-xs-4">Total Tax Amount</th>
+                            <th class="col-xs-4">Total Tax</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,8 +50,8 @@
                     <thead>
                         <tr>
                             <th class="col-xs-4">Effected Amount</th>
-                            <th class="col-xs-4">Tax Rate on Amount</th>
-                            <th class="col-xs-4">Total Tax Amount</th>
+                            <th class="col-xs-4">Tax Rate on Portion</th>
+                            <th class="col-xs-4">Tax on this Portion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,7 +92,25 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="http://www.forbes.com/sites/kellyphillipserb/2015/05/14/2015-tax-rates-standard-deductions-personal-exemptions-credit-amounts-more/">data</a>
+                <p>
+                    Use some common sense: This was written by a nerd with a Forbes artical and
+                    should not be taken as tax advice.
+                </p>
+                <div class="well well-sm pull-right">
+                    <a href="http://www.forbes.com/sites/kellyphillipserb/2015/05/14/2015-tax-rates-standard-deductions-personal-exemptions-credit-amounts-more/">
+                        Data
+                    </a> |
+                    <a href="https://github.com/deplicator/tax-slider">
+                        Source
+                    </a> |
+                    <a href="#">
+                        Why
+                    </a> |
+                    <a href="mailto:james@geekwagon.net?subject=Why did you waste your time with this silly tax thing?">
+                        Questions
+                    </a>
+                </div>
+
             </div>
 
         </div>
@@ -179,7 +198,7 @@
                 fifteenAmount = 28224;
                 twentyfiveAmount = 53299;
                 twentyeightAmount = 98549;
-                thirtythreeAmount = 22199;
+                thirtythreeAmount = 222199;
                 thirtyfiveAmount = taxableAmount - 411500;
                 tenTax = 922.50;
                 fifteenTax = 4233.50;
@@ -189,13 +208,14 @@
                 thirtyfiveTax = thirtyfiveAmount * 0.35;
 
             } else {
-                tenAmount = 9225;
-                fifteenAmount = 28224;
-                twentyfiveAmount = 53299;
-                twentyeightAmount = 98549;
-                thirtythreeAmount = 22199;
-                thirtyfiveAmount = 1699;
+                tenAmount = 9225;           //  $9,225 -       $0
+                fifteenAmount = 28224;      // $37,450 -   $9,226
+                twentyfiveAmount = 53299;   // $90,750 -  $37,451
+                twentyeightAmount = 98549;  //$189,300 -  $90,751
+                thirtythreeAmount = 222199; //$411,500 - $189,301
+                thirtyfiveAmount = 1699;    //$413,200 - $411,501
                 thirtynineAmount = taxableAmount - 413200;
+
                 tenTax = 922.50;
                 fifteenTax = 4233.50;
                 twentyfiveTax = 13325.00;
