@@ -13,315 +13,158 @@
 <body>
     <div class="container-fluid">
         <div class="col-sm-10 col-sm-offset-1">
-            <h1 class="text-center">2015 Tax <del>Table</del> Slider</h1>
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <span id="notice">
-                    This number represents your taxable income, move the slider to see how changes
-                    in taxable income effect the taxes owed for 2015. <strong>Only for filing as
-                    single.</strong>
-                </span>
+
+            <!-- Heading and Input -->
+            <div class="content row">
+                <h1 class="text-center">2018 Tax <del>Table</del> Slider</h1>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span id="notice">
+                        <strong>Only for fun, don't take as tax advice.</strong> Use some common sense,
+                        this was written by a nerd with a Forbes artical and should not be taken as tax advice.
+                    </span>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input id="altTax" type="checkbox" value="">
+                        Check this to see what 2018 taxes would be like without the new tax law.
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <button id="single" type="button" class="status btn btn-default active">Single/Married Filing Seperate</button>
+                        <button id="joint"  type="button" class="status btn btn-default">Married Filing Joint</button>
+                        <button id="head"   type="button" class="status btn btn-default">Head of Household</button>
+                    </div>
+                </div>
+
+                <p class="text-center">
+                    <span class="giant total-income"></span>
+                </p>
+                <div id="input-income">
+                    <input type="range" min="0" max="2000000" step="1000" value="50000">
+                </div>
+
             </div>
 
+            <!-- Tables -->
             <div class="content row">
-                <p class="text-center">
-                    <span class="giant total-taxable"></span>
-                </p>
-                <input type="range" min="0" max="1000000" step="250" value="50000">
+
+                <!-- main table on the left -->
+                <div class="col-sm-6">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-xs-6">Income</th>
+                            <td><span class="total-income"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Standard Deduction</th>
+                            <td><span id="total-deduction"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Taxable</th>
+                            <td><span id="total-taxable"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Effective Tax Rate</th>
+                            <td><span id="total-tax-rate"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Total Tax</th>
+                            <td><span id="total-tax-amount"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- break down table on right -->
                 <div class="col-sm-6">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="col-xs-4">Taxable Income</th>
-                                <th class="col-xs-4">Effective Tax Rate</th>
-                                <th class="col-xs-4">Total Tax</th>
+                                <th class="col-xs-3" colspan="4">Bracket Breakdown</th>
+                            </tr>
+                            <tr>
+                                <th class="col-xs-2">Bracket</th>
+                                <th class="col-xs-3">Amount</th>
+                                <th class="col-xs-3">Tax Rate</th>
+                                <th class="col-xs-3">Tax</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong><span class="total-taxable"></span></strong></td>
-                                <td><strong><span id="total-tax-rate"></span></strong></td>
-                                <td><strong><span id="total-tax-amount"></span></strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="col-xs-4">Effected Amount</th>
-                                <th class="col-xs-4">Tax Rate on Portion</th>
-                                <th class="col-xs-4">Tax on this Portion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span id="ten-amount"></span></td>
-                                <td>10.0%</td>
-                                <td><span id="ten-tax"></span></td>
+                                <td>1</td>
+                                <td><span id="bracket0-amount"></span></td>
+                                <td><span id="bracket0-percent"></span></td>
+                                <td><span id="bracket0-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="fifteen-amount"></span></td>
-                                <td>15.0%</td>
-                                <td><span id="fifteen-tax"></span></td>
+                                <td>2</td>
+                                <td><span id="bracket1-amount"></span></td>
+                                <td><span id="bracket1-percent"></span></td>
+                                <td><span id="bracket1-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="twentyfive-amount"></span></td>
-                                <td>25.0%</td>
-                                <td><span id="twentyfive-tax"></span></td>
+                                <td>3</td>
+                                <td><span id="bracket2-amount"></span></td>
+                                <td><span id="bracket2-percent"></span></td>
+                                <td><span id="bracket2-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="twentyeight-amount"></span></td>
-                                <td>28.0%</td>
-                                <td><span id="twentyeight-tax"></span></td>
+                                <td>4</td>
+                                <td><span id="bracket3-amount"></span></td>
+                                <td><span id="bracket3-percent"></span></td>
+                                <td><span id="bracket3-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="thirtythree-amount"></span></td>
-                                <td>33.0%</td>
-                                <td><span id="thirtythree-tax"></span></td>
+                                <td>5</td>
+                                <td><span id="bracket4-amount"></span></td>
+                                <td><span id="bracket4-percent"></span></td>
+                                <td><span id="bracket4-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="thirtyfive-amount"></span></td>
-                                <td>35.0%</td>
-                                <td><span id="thirtyfive-tax"></span></td>
+                                <td>6</td>
+                                <td><span id="bracket5-amount"></span></td>
+                                <td><span id="bracket5-percent"></span></td>
+                                <td><span id="bracket5-tax"></span></td>
                             </tr>
                             <tr>
-                                <td><span id="thirtynine-amount"></span></td>
-                                <td>39.6%</td>
-                                <td><span id="thirtynine-tax"></span></td>
+                                <td>7</td>
+                                <td><span id="bracket6-amount"></span></td>
+                                <td><span id="bracket6-percent"></span></td>
+                                <td><span id="bracket6-tax"></span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <div class="col-sm-6">
-                    <svg id="visualisation"></svg>
-                </div>
+            <!-- Chart, for funs -->
+            <div class="content row">
+                <svg id="visualisation"></svg>
+            </div>
 
-                <div class="col-sm-12">
-                <p>
-                    Use some common sense: This was written by a nerd with a Forbes artical and
-                    should not be taken as tax advice.
-                </p>
+            <!-- Stuff at the bottom -->
+            <div class="content row">
                 <div class="well well-sm pull-right">
-                    <a href="http://www.forbes.com/sites/kellyphillipserb/2015/05/14/2015-tax-rates-standard-deductions-personal-exemptions-credit-amounts-more/">
-                        Data
-                    </a> |
                     <a href="https://github.com/deplicator/tax-slider">
                         Source
                     </a> |
-                    <a href="http://deplicator.github.io/blog/tax-sliding">
+                    <a href="http://www.geekwagon.net/index.php/2018/more-tax-sliding/">
                         Why
                     </a> |
-                    <a href="mailto:james@geekwagon.net?subject=Why did you waste your time with this silly tax thing?">
+                    <a href="mailto:james@geekwagon.net?subject=Why did you waste your time with this silly tax thing? Again!">
                         Questions
                     </a>
                 </div>
-
             </div>
-            </div>
-
         </div>
     </div>
 
-    <script>
-        // Data array is build as you move slider, because.
-        var data = [];
-
-        $(document).ready(Update);
-
-        // Returns string of a number with commans and a dollar sign.
-        function dollarize(num) {
-            num = Math.round(num * 100) / 100;
-            num = num.toFixed(2);
-            return '$' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // Returns string of a number formated to be a percent.
-        function percentagize(num) {
-            if(isNaN(num)) { num = 0; }
-            num = Math.round(num * 10000) / 100;
-            return num.toString() + '%';
-        }
-
-        // Table changes as input changes.
-        function updateTables() {
-            // Value from slider.
-            var taxableAmount = parseInt($('input').val(), 10);
-
-            // Amounts to tax for each percent range.
-            var tenAmount = 0;
-            var fifteenAmount = 0;
-            var twentyfiveAmount = 0;
-            var twentyeightAmount = 0;
-            var thirtythreeAmount = 0;
-            var thirtyfiveAmount = 0;
-            var thirtynineAmount = 0;
-
-            // Caluclate tax amounts.
-            var tenTax = 0;
-            var fifteenTax = 0;
-            var twentyfiveTax = 0;
-            var twentyeightTax = 0;
-            var thirtythreeTax = 0;
-            var thirtyfiveTax = 0;
-            var thirtynineTax = 0;
-
-            if(taxableAmount <= 9225) {
-                tenAmount = taxableAmount;
-                tenTax = tenAmount * 0.10;
-            } else if(taxableAmount <= 37450) {
-                tenAmount = 9225;
-                fifteenAmount = taxableAmount - 9225;
-                tenTax = 922.50;
-                fifteenTax = fifteenAmount * 0.15;
-            } else if(taxableAmount <= 90750) {
-                tenAmount = 9225;
-                fifteenAmount = 28224;
-                twentyfiveAmount = taxableAmount - 37450;
-                tenTax = 922.50;
-                fifteenTax = 4233.50;
-                twentyfiveTax = twentyfiveAmount * 0.25;
-
-            } else if(taxableAmount <= 189300) {
-                tenAmount = 9225;
-                fifteenAmount = 28224;
-                twentyfiveAmount = 53299;
-                twentyeightAmount = taxableAmount - 90750;
-                tenTax = 922.50;
-                fifteenTax = 4233.50;
-                twentyfiveTax = 13325.00;
-                twentyeightTax = twentyeightAmount * 0.28;
-
-            } else if(taxableAmount <= 411500) {
-                tenAmount = 9225;
-                fifteenAmount = 28224;
-                twentyfiveAmount = 53299;
-                twentyeightAmount = 98549;
-                thirtythreeAmount = taxableAmount - 189300;
-                tenTax = 922.50;
-                fifteenTax = 4233.50;
-                twentyfiveTax = 13325.00;
-                twentyeightTax = 27593.72;
-                thirtythreeTax = thirtythreeAmount * 0.33;
-
-            } else if(taxableAmount <= 413200) {
-                tenAmount = 9225;
-                fifteenAmount = 28224;
-                twentyfiveAmount = 53299;
-                twentyeightAmount = 98549;
-                thirtythreeAmount = 222199;
-                thirtyfiveAmount = taxableAmount - 411500;
-                tenTax = 922.50;
-                fifteenTax = 4233.50;
-                twentyfiveTax = 13325.00;
-                twentyeightTax = 27593.72;
-                thirtythreeTax = 73325.67;
-                thirtyfiveTax = thirtyfiveAmount * 0.35;
-
-            } else {
-                tenAmount = 9225;           //  $9,225 -       $0
-                fifteenAmount = 28224;      // $37,450 -   $9,226
-                twentyfiveAmount = 53299;   // $90,750 -  $37,451
-                twentyeightAmount = 98549;  //$189,300 -  $90,751
-                thirtythreeAmount = 222199; //$411,500 - $189,301
-                thirtyfiveAmount = 1699;    //$413,200 - $411,501
-                thirtynineAmount = taxableAmount - 413200;
-
-                tenTax = 922.50;
-                fifteenTax = 4233.50;
-                twentyfiveTax = 13325.00;
-                twentyeightTax = 27593.72;
-                thirtythreeTax = 73325.67;
-                thirtyfiveTax = 594.65;
-                thirtynineTax = thirtynineAmount * 0.396;
-            }
-
-            // Calculate effective tax rate.
-            var totalTaxAmount = tenTax + fifteenTax + twentyfiveTax +
-                twentyeightTax + thirtythreeTax + thirtyfiveTax + thirtynineTax;
-            var effectiveTaxRate = totalTaxAmount / taxableAmount;
-
-            // Update display tables.
-            $('.total-taxable').html(dollarize(taxableAmount));
-            $('#total-tax-rate').html(percentagize(effectiveTaxRate));
-            $('#total-tax-amount').html(dollarize(totalTaxAmount));
-
-            $('#ten-amount').html(dollarize(tenAmount));
-            $('#ten-tax').html(dollarize(tenTax));
-
-            $('#fifteen-amount').html(dollarize(fifteenAmount));
-            $('#fifteen-tax').html(dollarize(fifteenTax));
-
-            $('#twentyfive-amount').html(dollarize(twentyfiveAmount));
-            $('#twentyfive-tax').html(dollarize(twentyfiveTax));
-
-            $('#twentyeight-amount').html(dollarize(twentyeightAmount));
-            $('#twentyeight-tax').html(dollarize(twentyeightTax));
-
-            $('#thirtythree-amount').html(dollarize(thirtythreeAmount));
-            $('#thirtythree-tax').html(dollarize(thirtythreeTax));
-
-            $('#thirtyfive-amount').html(dollarize(thirtyfiveAmount));
-            $('#thirtyfive-tax').html(dollarize(thirtyfiveTax));
-
-            $('#thirtynine-amount').html(dollarize(thirtynineAmount));
-            $('#thirtynine-tax').html(dollarize(thirtynineTax));
-
-            // Update data array.
-            if(isNaN(taxableAmount)) taxableAmount = 0;
-            if(isNaN(effectiveTaxRate)) effectiveTaxRate = 0;
-            data.push({amount: taxableAmount, percent: effectiveTaxRate * 100})
-        }
-
-        // Guess
-        function updateChart() {
-            var vis = d3.select("#visualisation");
-            vis.selectAll("*").remove();
-            var width = 650;
-            var height = 425;
-            var margins = 25;
-
-            var xScale = d3.scale.linear().range([margins, width - margins]).domain([0, 500000]);
-            var yScale = d3.scale.linear().range([height - margins, margins]).domain([0, 40]);
-            var xAxis = d3.svg.axis().scale(xScale);
-            var yAxis = d3.svg.axis().scale(yScale).orient("left");
-
-            vis.append("svg:g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + (height - margins) + ")")
-                .call(xAxis);
-
-            vis.append("svg:g")
-                .attr("class", "y axis")
-                .attr("transform", "translate(" + (margins) + ",0)")
-                .call(yAxis);
-
-            var lineGen = d3.svg.line().x(function(d) {
-                return xScale(d.amount);
-            }).y(function(d) {
-                return yScale(d.percent);
-            });
-
-            vis.append('svg:path')
-                .attr('d', lineGen(data))
-                .attr('stroke', 'green')
-                .attr('stroke-width', 2)
-                .attr('fill', 'none');
-        }
-
-        // Run bot updates.
-        function Update() {
-            updateTables();
-            updateChart();
-        }
-
-        // Handlers
-        $('input').on('input change', Update);
-
-    </script>
+    <script src="main.js"></script>
 
 <body>
 </html>
