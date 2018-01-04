@@ -199,12 +199,18 @@
         ]
     }
 
+    // https://www.fool.com/taxes/2017/12/30/your-complete-guide-to-the-2018-tax-changes.aspx
+    var standardDeductionData = [12000, 24000, 18000];
+    var altStandardDeductionData = [6500, 1300, 9350];
+
     // Load whichever tax data to use into this.
     var currentTaxData;
+    var currentStandardDeductions;
 
     // Run update on load.
     $(document).ready(function() {
         currentTaxData = taxData;
+        currentStandardDeductions = standardDeductionData;
         updateTables();
     });
 
@@ -237,8 +243,10 @@
     function toggleAltData() {
         if ($('#altTax').prop('checked')) {
             currentTaxData = altTaxData;
+            currentStandardDeductions = altStandardDeductionData;
         } else {
             currentTaxData = taxData;
+            currentStandardDeductions = standardDeductionData;
         }
         clearChart();
         updateTables();
@@ -253,11 +261,8 @@
         // Number representing filing status.
         var status = parseInt(getFilingStatus());
 
-        // Array of standard deductions for each status.
-        var standardDeductions = [12000, 24000, 18000];
-
         // Current standard deduction.
-        var standardDeduction = standardDeductions[status];
+        var standardDeduction = currentStandardDeductions[status];
 
         // Current taxable amount in each bracket.
         taxAmountByBracket = [0, 0, 0, 0, 0, 0, 0];

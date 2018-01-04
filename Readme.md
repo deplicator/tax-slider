@@ -19,3 +19,5 @@ Sources
 https://www.forbes.com/sites/kellyphillipserb/2017/12/17/what-the-2018-tax-brackets-standard-deduction-amounts-and-more-look-like-under-tax-reform/#2b996c581401
 
 https://www.cnbc.com/2017/12/29/heres-where-you-stand-in-the-new-2018-tax-brackets.html#ampshare=https://www.cnbc.com/2017/12/29/heres-where-you-stand-in-the-new-2018-tax-brackets.html
+
+https://www.fool.com/taxes/2017/12/30/your-complete-guide-to-the-2018-tax-changes.aspx
