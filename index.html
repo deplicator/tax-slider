@@ -23,7 +23,7 @@
                     </button>
                     <span id="notice">
                         <strong>Only for fun, don't take as tax advice.</strong> Use some common sense,
-                        this was written by a nerd with a Forbes artical and should not be taken as tax advice.
+                        this was written by a nerd with a Forbes article and should not be taken as tax advice.
                     </span>
                 </div>
 
@@ -43,7 +43,8 @@
                 </div>
 
                 <p class="text-center">
-                    <span class="giant total-income"></span>
+                    <span class="giant total-income" id="span-income">50000</span>
+                    <input type="text" pattern="[0-9]*" value="50000" class="hidden" id="text-input-income"><span id="errmsg"></span>
                 </p>
                 <div id="input-income">
                     <input type="range" min="0" max="2000000" step="1000" value="50000">

@@ -211,7 +211,8 @@
     $(document).ready(function() {
         currentTaxData = taxData;
         currentStandardDeductions = standardDeductionData;
-        updateTables();
+
+        updateTables($('#text-input-income').val());
     });
 
     // Returns string of a number with commans and a dollar sign.
@@ -249,14 +250,16 @@
             currentStandardDeductions = standardDeductionData;
         }
         clearChart();
-        updateTables();
+        updateTables($('#text-input-income').val());
     }
 
     // Table changes as input changes.
-    function updateTables() {
+    function updateTables(number) {
 
         // Value from slider.
-        var income = parseInt($('#input-income input').val(), 10);
+        var income = parseInt(number, 10);
+
+        $('#text-input-income').val(income);
 
         // Number representing filing status.
         var status = parseInt(getFilingStatus());
@@ -396,10 +399,34 @@
         });
         $(event.currentTarget).addClass('active');
         clearChart();
-        updateTables();
+        updateTables($('#text-input-income').val());
     }
 
     // Handlers
-    $('#input-income input').on('#input-income input change', updateTables);
+    $('#input-income input').on('#input-income input change', function() {
+        updateTables($('#input-income input').val());
+    });
     $('.status').on('.status click', UpdateStatus);
     $('#altTax').on('#altTax click', toggleAltData);
+
+    // Click on big number to enter text.
+    $('#span-income').on('#span-income click', function() {
+        $('#span-income').addClass('hidden');
+        $('#text-input-income').removeClass('hidden');
+    });
+
+    // Handles when done entering text.
+    $('#text-input-income').on('#text-input-income keypress', function(e) {
+
+        if (e.which != 13 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            $("#errmsg").html("Digits Only").show().fadeOut("slow");
+            return false;
+        }
+
+        if (e.which == 13) {
+            $('.total-income').html(dollarize($('#text-input-income').val()));
+            $('#span-income').removeClass('hidden');
+            $('#text-input-income').addClass('hidden');
+            updateTables($('#text-input-income').val());
+        }
+    });
